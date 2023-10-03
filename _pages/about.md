@@ -19,7 +19,10 @@ I am Adrian Leon, a dedicated Ph.D. student in the field of Brain-Computer Inter
 ======
 Research Interests
 
-My research is centered around the fascinating world of Brain-Computer Interfaces. Specifically, I am working on developing a pipeline that not only facilitates faster learning for mind control but also enhances users' mental health and overall well-being. My research spans various aspects of BCI, including virtual environment development in both VR and screen-based platforms, EEG signal acquisition, and the application of machine learning and deep learning techniques.
+
+My research is centered around the fascinating world of Brain-Computer Interfaces. 
+Specifically, I am working on developing a pipeline that not only facilitates faster learning for mind control but also enhances users' mental health and overall well-being. 
+My research spans various aspects of BCI, including virtual environment development in both VR and screen-based platforms, EEG signal acquisition, and the application of machine learning and deep learning techniques.
 ------
 Recent Publications
 
@@ -30,7 +33,7 @@ Recent Publications
 ------
 Get in Touch
 
-I welcome collaboration, discussions, and opportunities to work together in the exciting field of Brain-Computer Interfaces. If you are interested in collaborating or have any inquiries, please don't hesitate to reach out to me via email at [your_email@example.com], and I will respond promptly.
+I welcome collaboration, discussions, and opportunities to work together in the exciting field of Brain-Computer Interfaces. If you are interested in collaborating or have any inquiries, please don't hesitate to reach out to me via email at [adrianleon@tecnico.ulisbo.pt], and I will respond promptly.
 
 Thank you for visiting my academic portfolio, and I look forward to connecting with you as we explore the limitless potential of BCI technology.
 
