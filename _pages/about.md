@@ -7,7 +7,7 @@ redirect_from:
   - /about/
   - /about.html
 ---
-![Ilustration combining BCI and nature environment](/images/Headset-nature.jpg){: .align-right width="300 px"}
+![Ilustration combining BCI and nature environment](/images/Headset-nature.png){: .align-right width="300 px"}
 
 Exploring Brain-Computer Interfaces for a Better Tomorrow
 
