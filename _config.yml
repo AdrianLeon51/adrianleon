@@ -204,7 +204,7 @@ defaults:
       related: true
   # _pages
   - scope:
-      path: "adrianleon51.github.io/alwebsite/"
+      path: ""
       type: pages
     values:
       layout: single
