@@ -1,8 +1,8 @@
 # main links links
+main:
   - title: "Portfolio"
     url: /portfolio/
 
-main:
   - title: "Publications"
     url: https://scholar.google.com/citations?hl=es&user=0fgsaI4AAAAJ
 
