@@ -1,5 +1,5 @@
 ---
-permalink: /about/
+permalink: adrianleon51.github.io/alwebsite/
 title: "Olà! I am Adrian"
 excerpt: "About me"
 author_profile: true
