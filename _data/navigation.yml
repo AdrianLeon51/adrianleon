@@ -1,7 +1,14 @@
 # main links links
+  - title: "Portfolio"
+    url: /portfolio/
+
 main:
   - title: "Publications"
-    url: /publications/
+    url: https://scholar.google.com/citations?hl=es&user=0fgsaI4AAAAJ
+
+  - title: "CV"
+    url: /files/Adrian Leon - Two pages (Sep 2023).pdf
+
 
 #  - title: "Talks"
 #    url: /talks/    
@@ -9,14 +16,12 @@ main:
 #  - title: "Teaching"
 #    url: /teaching/    
     
-  - title: "Portfolio"
-    url: /portfolio/
+
         
 #  - title: "Blog Posts"
 #    url: /year-archive/
     
-  - title: "CV"
-    url: /cv/
+
     
 #  - title: "Guide"
 #    url: /markdown/
