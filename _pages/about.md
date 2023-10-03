@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Ola! I am Adrian"
+title: "Ola! A brief story about me"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
@@ -10,7 +10,7 @@ redirect_from:
 
 ![Illustration combining BCI and nature environment](images/Headset-nature.png){: .align-right width="300 px"}
 
-Exploring Brain-Computer Interfaces for a Better Tomorrow
+Curious about the why's and how's in life
 
 
 *About Me*
