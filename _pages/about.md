@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Olà! I am Adrian"
+title: "Ola! I am Adrian"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
