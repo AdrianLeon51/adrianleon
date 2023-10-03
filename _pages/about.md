@@ -7,17 +7,19 @@ redirect_from:
   - /about/
   - /about.html
 ---
+![Ilustration combining BCI and nature environment](/images/Headset-nature.jpg){: .align-right width="300 px"}
 
 Exploring Brain-Computer Interfaces for a Better Tomorrow
 
-![Ilustration combining BCI and nature environment](/images/Headset-nature.jpg){: .align-right width="350 px"}
 
 *About Me*
+------
 
 I am Adrian Leon, a dedicated Ph.D. student in the field of Brain-Computer Interface (BCI) at Tecnico Lisboa. With a background in Nanotechnology and a Master's in Electronics and Automation, my academic journey has been an exciting exploration of the convergence of technology and the human mind.
 
 
 *Research Interests*
+------
 
 My research is centered around the fascinating world of Brain-Computer Interfaces. 
 Specifically, I am working on developing a pipeline that not only facilitates faster learning for mind control but also enhances users' mental health and overall well-being. 
@@ -25,6 +27,7 @@ My research spans various aspects of BCI, including virtual environment developm
 
 
 *Recent Publications*
+------
 
 [IMMERSIVE VIRTUAL TECHNOLOGIES FOR LEARNING PHYSICS IN HIGHER EDUCATION](https://library.iated.org/view/OLMEDO2022IMM) - In this paper, I explore the use of immersive virtual technologies for enhancing physics education in higher education settings.
 
@@ -33,6 +36,7 @@ My research spans various aspects of BCI, including virtual environment developm
 
 
 *Get in Touch*
+------
 
 I welcome collaboration, discussions, and opportunities to work together in the exciting field of Brain-Computer Interfaces. If you are interested in collaborating or have any inquiries, please don't hesitate to reach out to me via email at [adrianleon@tecnico.ulisbo.pt], and I will respond promptly.
 
