@@ -10,7 +10,7 @@ redirect_from:
 
 ![Illustration combining BCI and nature environment](images/Headset-nature.png){: .align-right width="300 px"}
 
-Nothing to tell.
+Curious about the whys and hows in life.
 
 
 *About Me*
