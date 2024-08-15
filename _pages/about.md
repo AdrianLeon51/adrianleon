@@ -1,5 +1,8 @@
 ---
+
 ![Illustration representative of accessiblity in society](images/Accessibility-panoramic(1).png){: .align-center width="1000 px"}
+
+---
 permalink: /
 title: "Ola! A brief story about me"
 excerpt: "About me"
