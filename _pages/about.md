@@ -1,4 +1,3 @@
-
 ---
 permalink: /
 title: "Ola! A brief story about me"
@@ -8,6 +7,7 @@ redirect_from:
   - /about/
   - /about.html
 ---
+
 ![Illustration combining BCI and nature environment](images/Accessibility-panoramic(1).png){: .align-center width="100 px"}
 
 Curious about the whys and hows in life.
