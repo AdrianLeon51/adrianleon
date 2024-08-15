@@ -1,3 +1,5 @@
+![Illustration representative of accessiblity in society](images/Accessibility-panoramic(1).png){: .align-center width="1000 px"}
+
 ---
 permalink: /
 title: "Ola! A brief story about me"
@@ -7,10 +9,8 @@ redirect_from:
   - /about/
   - /about.html
 ---
-![Illustration representative of accessiblity in society](images/Accessibility-panoramic(1).png){: .align-center width="1000 px"}
 
 Curious about the whys and hows in life.
-
 
 *About Me*
 ------
