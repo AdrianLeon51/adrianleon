@@ -8,14 +8,12 @@ redirect_from:
   - /about.html
 ---
 
-![Illustration combining BCI and nature environment](images/Headset-nature.png){: .align-right width="400 px"}
-
 Curious about the whys and hows in life.
 
 
 *About Me*
 ------
-
+![Illustration combining BCI and nature environment](images/Headset-nature.png){: .align-right width="400 px"}
 I am Adrian Leon, a dedicated Ph.D. student in the field of Accessibility in Extended Reality (XR) at Tecnico Lisboa. With a background in Nanotechnology and a Master's in Electronics and Automation, my academic journey has been an exciting exploration of the convergence of technology and the human mind.
 
 
