@@ -10,7 +10,7 @@ redirect_from:
 
 ![Illustration combining BCI and nature environment](images/Accessibility-panoramic(1).png){: .align-center width="1000 px"}
 
-Curious about the whys and hows in life.
+Curious about the whys and hows in life.{:.align-center}
 
 *About Me*
 ------
