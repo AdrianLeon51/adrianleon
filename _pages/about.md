@@ -1,6 +1,4 @@
----
-
-![Illustration representative of accessiblity in society](images/Accessibility-panoramic(1).png){: .align-center width="1000 px"}
+<img src="images/Accessibility-panoramic(1).png" alt="Illustration representative of accessibility in society" style="width:100%; display:block; margin:auto;" />
 
 ---
 permalink: /
