@@ -8,7 +8,7 @@ redirect_from:
   - /about.html
 ---
 
-![Illustration combining BCI and nature environment](images/Headset-nature.png){: .align-right width="300 px"}
+![Illustration combining BCI and nature environment](images/Headset-nature.png){: .align-right width="400 px"}
 
 Curious about the whys and hows in life.
 
@@ -16,15 +16,15 @@ Curious about the whys and hows in life.
 *About Me*
 ------
 
-I am Adrian Leon, a dedicated Ph.D. student in the field of Brain-Computer Interface (BCI) at Tecnico Lisboa. With a background in Nanotechnology and a Master's in Electronics and Automation, my academic journey has been an exciting exploration of the convergence of technology and the human mind.
+I am Adrian Leon, a dedicated Ph.D. student in the field of Accessibility in Extended Reality (XR) at Tecnico Lisboa. With a background in Nanotechnology and a Master's in Electronics and Automation, my academic journey has been an exciting exploration of the convergence of technology and the human mind.
 
 
 *Research Interests*
 ------
 
-My research is centered around the fascinating world of Brain-Computer Interfaces. 
-Specifically, I am working on developing a pipeline that not only facilitates faster learning for mind control but also enhances users' mental health and overall well-being. 
-My research spans various aspects of BCI, including virtual environment development in both VR and screen-based platforms, EEG signal acquisition, and the application of machine learning and deep learning techniques.
+My research is centered around societal issues and the use of technology in benefit of society. 
+Specifically, I am working on a holistic system that allows hands-free interaction in virtual environment, meaning locomotion, pointing and selection systems.
+My research utilizes different tools like eye-tracking, voice recognition, facial gesture recognition and BCI, including virtual environment development in both VR and screen-based platforms, EEG signal acquisition, and the application of machine learning and deep learning techniques.
 
 
 *Recent Publications*
