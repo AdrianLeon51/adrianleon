@@ -1,4 +1,3 @@
-<img src="images/Accessibility-panoramic(1).png" alt="Illustration representative of accessibility in society" style="width:100%; display:block; margin:auto;" />
 
 ---
 permalink: /
@@ -9,6 +8,7 @@ redirect_from:
   - /about/
   - /about.html
 ---
+![Illustration combining BCI and nature environment](images/Accessibility-panoramic(1).png){: .align-center width="100 px"}
 
 Curious about the whys and hows in life.
 
