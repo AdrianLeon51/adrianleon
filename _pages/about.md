@@ -23,11 +23,12 @@ I am Adrian Leon, a dedicated Ph.D. student in the field of Accessibility in Ext
 
 My research is centered around societal issues and the use of technology in benefit of society. 
 Specifically, I am working on a holistic system that allows hands-free interaction in virtual environment, meaning locomotion, pointing and selection systems.
-My research utilizes different tools like eye-tracking, voice recognition, facial gesture recognition and BCI, including virtual environment development in both VR and screen-based platforms, EEG signal acquisition, and the application of machine learning and deep learning techniques.
+My research utilizes different tools like head-tracking, eye-tracking, voice recognition, facial gesture recognition and BCI, including virtual environment development in both VR and screen-based platforms, EEG signal acquisition, and the application of machine learning and deep learning techniques.
 
 
 *Recent Publications*
 ------
+[Multimodal hands-free vr for wheelchair users with upper limb mobility limitations: Leaning, head-gain, and gaze pointing](https://doi.org/10.1109/VRW66409.2025.00032) - Here we detail the design and implementation of a hands-free input system for VR games for wheelchair users.
 
 [IMMERSIVE VIRTUAL TECHNOLOGIES FOR LEARNING PHYSICS IN HIGHER EDUCATION](https://library.iated.org/view/OLMEDO2022IMM) - In this paper, I explore the use of immersive virtual technologies for enhancing physics education in higher education settings.
 
