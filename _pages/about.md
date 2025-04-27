@@ -39,9 +39,9 @@ My research utilizes different tools like head-tracking, eye-tracking, voice rec
 *Get in Touch*
 ------
 
-I welcome collaboration, discussions, and opportunities to work together in the exciting field of Brain-Computer Interfaces. If you are interested in collaborating or have any inquiries, please don't hesitate to reach out to me via email at [adrianleon@tecnico.ulisbo.pt], and I will respond promptly.
+I welcome collaboration, discussions, and opportunities to work together in the exciting field of Extended Reality (VR,AR,XR) and various forms of input (e.g. voice-,face-tracking, Brain-Computer Interfaces). If you are interested in collaborating or have any inquiries, please don't hesitate to reach out to me via email at [adrianleon@tecnico.ulisbo.pt], and I will respond promptly.
 
-Thank you for visiting my academic portfolio, and I look forward to connecting with you as we explore the limitless potential of BCI technology.
+Thank you for visiting my academic portfolio, and I look forward to connecting with you as we explore the limitless potential of technology to promote inclusive experiences.
 
 
 Greetings!
