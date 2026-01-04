@@ -34,6 +34,11 @@ My research utilizes different tools like head-tracking, eye-tracking, voice rec
 
 [Photochemical Reduction of Silver Nanoparticles on Diatoms](https://www.mdpi.com/1660-3397/21/3/185) - This publication delves into the photochemical reduction of silver nanoparticles on diatoms, showcasing the interdisciplinary nature of my research interests.
 
+*Latest Game Experiences*
+------
+[Spectral Glide](https://adrianleon51.itch.io/spectralglide) - Short snowboard immersive hands-free experience developed for a 3-day Game Jam.
+
+[Hands-Free Shooting XR Game](https://github.com/AdrianLeon51/XR_HandsFree) - Shooting game fully hands-free, using eye- or head-tracking for pointing and voice input or face gestures for selection.
 
 
 *Get in Touch*
