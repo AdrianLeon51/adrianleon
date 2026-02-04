@@ -36,6 +36,8 @@ My research utilizes different tools like head-tracking, eye-tracking, voice rec
 
 *Latest Game Experiences*
 ------
+[The Cuffler](https://globalgamejam.org/games/2026/asdf-4) - A fun Shell Game with an abnormal twist. A group effort developed during the 2-day Global Game Jam.
+
 [Spectral Glide](https://adrianleon51.itch.io/spectralglide) - Short snowboard immersive hands-free experience developed for a 3-day Game Jam.
 
 [Hands-Free Shooting XR Game](https://github.com/AdrianLeon51/XR_HandsFree) - Shooting game fully hands-free, using eye- or head-tracking for pointing and voice input or face gestures for selection.
