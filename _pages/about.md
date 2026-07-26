@@ -36,7 +36,7 @@ My research utilizes different tools like head-tracking, eye-tracking, voice rec
 
 *Latest Game Experiences*
 ------
-[XRCC 2nd place!](https://www.youtube.com/watch?v=vIm7_19qajk) - An immersive tool for fashion designers to customize garments through hand gestures and voice instructions.
+[Supra: XRCC 2nd place!](https://www.youtube.com/watch?v=vIm7_19qajk) - An immersive tool for fashion designers to customize garments through hand gestures and voice instructions.
 
 [The Cuffler](https://globalgamejam.org/games/2026/asdf-4) - A fun Shell Game with an abnormal twist. A group effort developed during the 2-day Global Game Jam.
 
