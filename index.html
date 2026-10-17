@@ -408,6 +408,8 @@ a:hover{color:var(--color-accent-300)}
 /* embedded project video */
 #project .shot .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
 #project .shot iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* panels scroll instead of squashing their content (the 16:9 shot used to shrink to a thin strip on short sheets) */
+#project > *,#journey > *,#contact > *{flex-shrink:0}
 .vidctl{display:flex;gap:8px}
 #contact{overflow:auto}
 .dwell-hl{outline:2px solid var(--color-accent-200);outline-offset:3px}
@@ -455,6 +457,8 @@ body{touch-action:pinch-zoom}
   .car-open{flex:1;flex-direction:column;align-items:flex-start;gap:2px;min-height:56px;padding:8px 14px;background:var(--color-bg);text-align:left}
   .car-open b{font-size:16px;font-weight:500;color:var(--color-text)}
   .hud .hint{display:none}
+  /* head pointing is a desktop/webcam demo: hidden on phone-width screens */
+  .hud,.cam,[data-head]{display:none !important}
   .scrollcue{bottom:auto;top:72px}
 }
 </style>
@@ -964,9 +968,13 @@ const station = {
   // phones: the overview is a carousel framing one island at a time
   projects: () => { if (isNarrow) { const p = projIslands[state.car].userData.base; return { pos:p.clone().add(V(0, 3.2, 12)), tgt:p.clone().add(V(0, 1.4, 0)) }; }
     return { pos:V(ARCH.x, ARCH.y+6.5, ARCH.z+24), tgt:V(ARCH.x, ARCH.y+1.2, ARCH.z-1) }; },
-  project:  (i) => { const p = projIslands[i].userData.base; return { pos:p.clone().add(V(3.4, 2.8, 7.2)), tgt:p.clone().add(V(2.6, .9, 0)) }; },
-  journey:  () => ({ pos:V(JOURNEY.x-8, JOURNEY.y+3, JOURNEY.z+17), tgt:V(JOURNEY.x-4.5, JOURNEY.y+0.2, JOURNEY.z) }),
-  contact:  () => ({ pos:V(CONTACT.x+6.5, CONTACT.y+3, CONTACT.z+10), tgt:V(CONTACT.x+4.6, CONTACT.y+1.3, CONTACT.z) })
+  // desktop aims beside the subject to leave room for side panels; phones aim at it (panels are bottom sheets)
+  project:  (i) => { const p = projIslands[i].userData.base;
+    return isNarrow ? { pos:p.clone().add(V(0, 3, 9.5)), tgt:p.clone().add(V(0, 1, 0)) } : { pos:p.clone().add(V(3.4, 2.8, 7.2)), tgt:p.clone().add(V(2.6, .9, 0)) }; },
+  journey:  () => isNarrow ? { pos:V(JOURNEY.x, JOURNEY.y+5, JOURNEY.z+22), tgt:V(JOURNEY.x, JOURNEY.y+0.2, JOURNEY.z) }
+    : { pos:V(JOURNEY.x-8, JOURNEY.y+3, JOURNEY.z+17), tgt:V(JOURNEY.x-4.5, JOURNEY.y+0.2, JOURNEY.z) },
+  contact:  () => isNarrow ? { pos:V(CONTACT.x, CONTACT.y+3, CONTACT.z+11), tgt:V(CONTACT.x, CONTACT.y+1.3, CONTACT.z) }
+    : { pos:V(CONTACT.x+6.5, CONTACT.y+3, CONTACT.z+10), tgt:V(CONTACT.x+4.6, CONTACT.y+1.3, CONTACT.z) }
 };
 const ORDER = ['home','projects','journey','contact'];
 const state = { page:'home', proj:-1, car:0 };
@@ -1191,6 +1199,7 @@ addEventListener('pointerdown', e=>{
 });
 async function toggleHead() {
   if (starting) return;
+  if (!headOn && (isTouch || isNarrow)) return; // head pointing is offered on desktop only (no MediaPipe download on phones)
   const btns = document.querySelectorAll('[data-head]');
   if (headOn) {
     headOn = false; stream && stream.getTracks().forEach(t=>t.stop()); stream = null;
@@ -1321,7 +1330,21 @@ const ray3 = new THREE.Raycaster(), tmpV = new THREE.Vector3(), tmpV2 = new THRE
 const ease = t => t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
 const clock = { last: performance.now(), elapsedTime: 0, getDelta(){ const n = performance.now(), d = (n - this.last)/1000; this.last = n; this.elapsedTime += Math.min(d,.05); return d; } };
 function resize(){ const w = innerWidth, h = innerHeight; renderer.setSize(w, h, false); camera.aspect = w/h;
-  camera.fov = w < 760 ? 55 : 42; camera.updateProjectionMatrix(); }
+  camera.fov = w < 760 ? 55 : 42; camera.updateProjectionMatrix(); shiftKey = ''; }
+// phones: shift the image up so the subject sits centred in the area above the bottom panel
+let viewShift = 0, shiftTarget = 0, shiftKey = '';
+function updateViewShift() {
+  const key = [isNarrow, state.page, state.proj, innerWidth, innerHeight].join();
+  if (key !== shiftKey) { // measure the panel covering the bottom only when the page or size changes
+    shiftKey = key;
+    const bottom = !isNarrow ? null : state.page==='projects' ? (state.proj>=0 ? 'project' : 'carousel') : state.page;
+    const el = bottom && document.getElementById(bottom);
+    shiftTarget = el ? Math.min(el.offsetHeight, innerHeight*.7)/2 : 0;
+  }
+  if (Math.abs(viewShift - shiftTarget) < .5 && (viewShift === shiftTarget)) return;
+  viewShift += (shiftTarget - viewShift)*.12; if (Math.abs(viewShift - shiftTarget) < .5) viewShift = shiftTarget;
+  if (viewShift > 0) camera.setViewOffset(innerWidth, innerHeight, 0, viewShift, innerWidth, innerHeight); else camera.clearViewOffset();
+}
 addEventListener('resize', resize); resize();
 
 // idle mode: after 4 s without input or motion, render every other frame (~30 fps) to save battery
@@ -1357,6 +1380,7 @@ function tick(once) {
   camera.position.set(camPos.x + look.x*par, camPos.y + look.y*par*.6, camPos.z);
   camera.position.y += Math.sin(t*.4)*.08;
   camera.lookAt(camTgt.x + look.x*par*.25, camTgt.y + look.y*par*.15, camTgt.z);
+  updateViewShift();
 
   // avatar looks where you look; reticle shows the gaze point
   head.rotation.y = THREE.MathUtils.lerp(head.rotation.y, look.x*.6 - .35, .1);
