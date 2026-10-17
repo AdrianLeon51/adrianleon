@@ -377,7 +377,7 @@ a:hover{color:var(--color-accent-300)}
 /* 2D fallback when 3D can't load */
 .cards{display:none}
 .no3d{overflow:auto}
-.no3d #scene,.no3d .labels,.no3d #loader,.no3d #pager,.no3d #project,.no3d .scrollcue,.no3d .hud,.no3d .cam,.no3d [data-head],.no3d [data-go="projects"].btn{display:none !important}
+.no3d #scene,.no3d .labels,.no3d #loader,.no3d #pager,.no3d #carousel,.no3d #project,.no3d .scrollcue,.no3d .hud,.no3d .cam,.no3d [data-head],.no3d [data-go="projects"].btn{display:none !important}
 .no3d .ui,.no3d .ui > main{position:static;pointer-events:auto}
 .no3d .nav{position:sticky;background:var(--color-bg)}
 .no3d .page{position:static;opacity:1;visibility:visible;transform:none;width:auto;height:auto;max-width:760px;margin:0 auto 48px;padding:32px 24px;background:none;box-shadow:none;overflow:visible}
@@ -429,6 +429,10 @@ a:hover{color:var(--color-accent-300)}
 /* nav: links sit inline on desktop, in a disclosure menu on phones */
 .nav-links{display:contents}
 .nav-toggle{display:none}
+.carousel{display:none}
+/* single-finger gestures go to the swipe handler; pinch-zoom stays available, sheets still scroll */
+body{touch-action:pinch-zoom}
+#project,#journey,#contact,.nav-links{touch-action:pan-y pinch-zoom}
 @media (max-width:760px){
   .nav{padding:12px 16px;gap:12px;background:linear-gradient(var(--color-bg) 60%,rgba(22,24,38,0))}
   .nav-toggle{display:inline-flex}
@@ -446,6 +450,10 @@ a:hover{color:var(--color-accent-300)}
   #journey h2,#contact h2{font-size:30px}
   /* the pager moves into the project sheet's header (see placePager) */
   #project .pager{position:static}
+  .carousel{display:flex;position:fixed;left:12px;right:12px;bottom:calc(16px + env(safe-area-inset-bottom));gap:8px;align-items:stretch}
+  .carousel .btn-icon{width:48px;height:auto;min-height:56px;font-size:22px}
+  .car-open{flex:1;flex-direction:column;align-items:flex-start;gap:2px;min-height:56px;padding:8px 14px;background:var(--color-bg);text-align:left}
+  .car-open b{font-size:16px;font-weight:500;color:var(--color-text)}
   .hud .hint{display:none}
   .scrollcue{bottom:auto;top:72px}
 }
@@ -491,6 +499,12 @@ a:hover{color:var(--color-accent-300)}
     <div class="cards" id="p-cards"></div>
   </section>
   <div class="labels" id="labels"></div>
+  <div class="carousel page" id="carousel" role="group" aria-label="Projects">
+    <button class="btn btn-secondary btn-icon" type="button" data-carprev data-dwell aria-label="Previous project">‹</button>
+    <button class="btn btn-secondary car-open" type="button" data-caropen data-dwell="long"><span class="kicker" id="car-kicker"></span><b id="car-title"></b><span class="sr-only"> (open project)</span></button>
+    <button class="btn btn-secondary btn-icon" type="button" data-carnext data-dwell aria-label="Next project">›</button>
+    <span class="sr-only" id="car-live" aria-live="polite"></span>
+  </div>
 
   <section class="page" id="project" data-screen-label="Project detail" aria-labelledby="p-title">
     <div class="row" style="justify-content:space-between" id="p-head">
@@ -947,13 +961,15 @@ const flies = (() => {
 const V = (x,y,z)=>new THREE.Vector3(x,y,z);
 const station = {
   home:     () => ({ pos:V(-3.6, 2.6, 8.8), tgt:V(-2.2, 1.2, 0) }),
-  projects: () => ({ pos:V(ARCH.x, ARCH.y+6.5, ARCH.z+24), tgt:V(ARCH.x, ARCH.y+1.2, ARCH.z-1) }),
+  // phones: the overview is a carousel framing one island at a time
+  projects: () => { if (isNarrow) { const p = projIslands[state.car].userData.base; return { pos:p.clone().add(V(0, 3.2, 12)), tgt:p.clone().add(V(0, 1.4, 0)) }; }
+    return { pos:V(ARCH.x, ARCH.y+6.5, ARCH.z+24), tgt:V(ARCH.x, ARCH.y+1.2, ARCH.z-1) }; },
   project:  (i) => { const p = projIslands[i].userData.base; return { pos:p.clone().add(V(3.4, 2.8, 7.2)), tgt:p.clone().add(V(2.6, .9, 0)) }; },
   journey:  () => ({ pos:V(JOURNEY.x-8, JOURNEY.y+3, JOURNEY.z+17), tgt:V(JOURNEY.x-4.5, JOURNEY.y+0.2, JOURNEY.z) }),
   contact:  () => ({ pos:V(CONTACT.x+6.5, CONTACT.y+3, CONTACT.z+10), tgt:V(CONTACT.x+4.6, CONTACT.y+1.3, CONTACT.z) })
 };
 const ORDER = ['home','projects','journey','contact'];
-const state = { page:'home', proj:-1 };
+const state = { page:'home', proj:-1, car:0 };
 const camPos = station.home().pos.clone(), camTgt = station.home().tgt.clone();
 let fly = null;
 function flyTo(s) {
@@ -968,12 +984,14 @@ const sectionHeading = () => document.getElementById(
 function focusSection(delay=600) { setTimeout(()=>sectionHeading()?.focus({ preventScroll:true }), delay); }
 function setPage(page, proj=-1) {
   if (page === state.page && proj === state.proj) return;
+  if (page==='projects' && proj<0 && state.proj>=0) state.car = state.proj; // back to the overview: carousel shows the island just closed
   state.page = page; state.proj = proj; dwellDirty = true;
   flyTo(page==='projects' && proj>=0 ? station.project(proj) : station[page]());
   document.querySelectorAll('.nav a.link').forEach(a=>{ if (a.dataset.go===page) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current'); });
   const on = (id, v) => document.getElementById(id).classList.toggle('on', v);
   on('home', page==='home'); on('cue', page==='home');
-  on('projects-head', page==='projects' && proj<0);
+  on('projects-head', page==='projects' && proj<0); on('carousel', page==='projects' && proj<0);
+  if (page==='projects' && proj<0) fillCarousel(false);
   on('project', page==='projects' && proj>=0); on('pager', page==='projects' && proj>=0);
   on('journey', page==='journey'); on('contact', page==='contact');
   if (proj>=0) fillProject(proj); else stopVideo();
@@ -982,6 +1000,17 @@ function setPage(page, proj=-1) {
   const names = { projects:'Projects', journey:'Education & Experience', contact:'Contact' };
   document.title = page==='home' ? 'Adrian Leon · XR Accessibility' : (proj>=0 ? PROJECTS[proj].title : names[page]) + ' · Adrian Leon';
   if (booted && !viaHead) focusSection();
+}
+/* phones: island carousel on the Projects overview */
+function fillCarousel(announce) {
+  const p = PROJECTS[state.car];
+  document.getElementById('car-kicker').textContent = p.kicker.split('·')[0].trim();
+  document.getElementById('car-title').textContent = p.title;
+  if (announce) document.getElementById('car-live').textContent = `Project ${state.car+1} of ${PROJECTS.length}: ${p.title}`;
+}
+function setCar(i) {
+  state.car = (i + PROJECTS.length) % PROJECTS.length;
+  fillCarousel(true); flyTo(station.projects());
 }
 function fillProject(i) {
   const p = PROJECTS[i];
@@ -1048,6 +1077,7 @@ addEventListener('keydown', e=>{
   if ((e.key==='c' || e.key==='C') && headOn) startCalib();
   if (e.key==='Escape' && state.proj>=0) setPage('projects');
   if (state.page==='projects' && state.proj>=0 && (e.key==='ArrowRight'||e.key==='ArrowLeft')) setPage('projects', (state.proj + (e.key==='ArrowRight'?1:-1) + 5) % 5);
+  else if (isNarrow && state.page==='projects' && (e.key==='ArrowRight'||e.key==='ArrowLeft')) setCar(state.car + (e.key==='ArrowRight'?1:-1));
   // inside a scrollable panel, up/down keys scroll it instead of changing page
   else if (e.target.closest && e.target.closest('[data-scroll], #project, #contact')) return;
   else if (e.key==='ArrowDown'||e.key==='PageDown') { const i=ORDER.indexOf(state.page); if (i<3) setPage(ORDER[i+1]); }
@@ -1059,6 +1089,9 @@ document.addEventListener('click', e=>{
   if (e.target.closest('[data-close]')) return setPage('projects');
   if (e.target.closest('[data-next]')) return setPage('projects', (state.proj+1)%5);
   if (e.target.closest('[data-prev]')) return setPage('projects', (state.proj+4)%5);
+  if (e.target.closest('[data-carprev]')) return setCar(state.car - 1);
+  if (e.target.closest('[data-carnext]')) return setCar(state.car + 1);
+  if (e.target.closest('[data-caropen]')) return setPage('projects', state.car);
   if (e.target.closest('[data-head]')) return toggleHead();
   if (e.target.closest('[data-recenter]')) return headOn && startCalib();
   if (e.target.closest('[data-play]')) return playVideo();
@@ -1067,12 +1100,39 @@ document.addEventListener('click', e=>{
   if (e.target.closest('[data-vidsound]')) return ytCmd('unMute');
   const dm = e.target.closest('[data-dwellms]');
   if (dm) { HEAD.dwellMs = +dm.dataset.dwellms; document.querySelectorAll('[data-dwellms]').forEach(b=>b.classList.toggle('on', b===dm)); return; }
-  if (e.target === canvas && state.page==='projects' && hover>=0) setPage('projects', hover);
+  // on phones a stray tap on the scene shouldn't open the centred island
+  if (e.target === canvas && state.page==='projects' && hover>=0 && !isNarrow) setPage('projects', hover);
 });
+// stones light up on hover, tap or keyboard focus
 document.querySelectorAll('.tl-item[data-stone]').forEach(el=>{
-  el.addEventListener('mouseenter', ()=>hlStone = +el.dataset.stone);
-  el.addEventListener('mouseleave', ()=>hlStone = -1);
+  const on = ()=>hlStone = +el.dataset.stone, off = ()=>{ if (hlStone === +el.dataset.stone) hlStone = -1; };
+  el.addEventListener('mouseenter', on); el.addEventListener('mouseleave', off);
+  el.addEventListener('focusin', on); el.addEventListener('focusout', off);
+  el.addEventListener('pointerdown', e=>{ if (e.pointerType === 'touch') on(); });
 });
+// touch swipes: up/down changes page, left/right moves the carousel or the open project
+let swipe = null;
+addEventListener('pointerdown', e=>{
+  swipe = e.pointerType === 'touch' && !e.target.closest('[data-scroll], #project, #contact, .nav, #carousel')
+    ? { x:e.clientX, y:e.clientY } : null;
+}, { passive:true });
+addEventListener('pointerup', e=>{
+  if (!swipe || e.pointerType !== 'touch') return;
+  const dx = e.clientX - swipe.x, dy = e.clientY - swipe.y; swipe = null;
+  if (Math.max(Math.abs(dx), Math.abs(dy)) < 50) return;
+  if (Math.abs(dx) > Math.abs(dy)*1.3) {
+    const step = dx < 0 ? 1 : -1;
+    if (state.page==='projects' && state.proj<0 && isNarrow) setCar(state.car + step);
+    else if (state.page==='projects' && state.proj>=0) setPage('projects', (state.proj + step + 5) % 5);
+  } else if (Math.abs(dy) > Math.abs(dx)*1.3) {
+    const now = performance.now(); if (now < wheelLock) return; wheelLock = now + 900;
+    const i = ORDER.indexOf(state.page), n = Math.max(0, Math.min(ORDER.length-1, i + (dy < 0 ? 1 : -1)));
+    if (n !== i) setPage(ORDER[n]);
+  }
+}, { passive:true });
+addEventListener('pointercancel', ()=>swipe = null);
+// re-frame the camera when the layout switches between phone and desktop (e.g. rotation)
+mqNarrow.addEventListener('change', ()=>flyTo(state.page==='projects' && state.proj>=0 ? station.project(state.proj) : station[state.page]()));
 let hlStone = -1;
 
 const camEl = document.getElementById('cam'), camSt = document.getElementById('camst'), camDot = document.getElementById('camdot'), video = document.getElementById('video');
@@ -1325,6 +1385,7 @@ function tick(once) {
     if (hits.length) newHover = hits[0].object.userData.island?.userData.i ?? -1;
   }
   if (newHover !== -1 || !labels.some(l=>l.matches(':hover'))) hover = newHover;
+  if (isNarrow && state.page==='projects' && state.proj<0) hover = state.car; // phones: the centred island is the active one
   canvas.style.cursor = hover>=0 ? 'pointer' : '';
   projIslands.forEach((g,i)=>{
     const u = g.userData, active = i===hover || i===state.proj;
@@ -1339,7 +1400,7 @@ function tick(once) {
     if (u.portal) { u.portal.rotation.z = t*.4; u.portal.children[1].material.opacity = .2 + Math.sin(t*2)*.1; }
   });
   labels.forEach((l,i)=>{
-    const show = state.page==='projects' && state.proj<0 && !fly;
+    const show = state.page==='projects' && state.proj<0 && !fly && (!isNarrow || i===state.car);
     l.classList.toggle('on', show); if (l.inert === show) l.inert = !show; // hidden labels: out of Tab order and screen readers
     if (show) {
       const p = projIslands[i], u = p.userData, b = u.hitBox || (u.hitBox = islandBox(p));
