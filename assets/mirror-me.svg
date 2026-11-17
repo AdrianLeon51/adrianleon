@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-label="Mirror Me concept art: an avatar and its reflection in a mirror">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#151729"/><stop offset="1" stop-color="#2b2350"/></linearGradient>
+    <radialGradient id="glass" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#b5abfc" stop-opacity=".55"/><stop offset="1" stop-color="#9184d9" stop-opacity=".12"/></radialGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <ellipse cx="640" cy="360" rx="190" ry="285" fill="url(#glass)" stroke="#cfd3e5" stroke-width="14"/>
+  <g fill="#b5abfc" fill-opacity=".7"><circle cx="640" cy="250" r="44"/><rect x="590" y="305" width="100" height="190" rx="48"/></g>
+  <g fill="#2f3560"><circle cx="400" cy="400" r="46"/><rect x="348" y="458" width="104" height="170" rx="50"/></g>
+  <g fill="#b97f5c"><circle cx="400" cy="396" r="40"/></g>
+  <path d="M452 420 Q540 330 600 300" fill="none" stroke="#b5abfc" stroke-width="5" stroke-dasharray="14 12" stroke-linecap="round"/>
+  <g fill="none" stroke="#b5abfc" stroke-width="5" stroke-linecap="round" opacity=".85"><circle cx="820" cy="300" r="30"/><circle cx="820" cy="300" r="6" fill="#b5abfc"/><path d="M880 300h120M880 340h90M880 380h140" opacity=".6"/></g>
+  <text x="640" y="680" text-anchor="middle" font-family="system-ui,sans-serif" font-size="30" fill="#d2cefd" letter-spacing="6">MIRROR ME</text>
+</svg>

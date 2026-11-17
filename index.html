@@ -461,6 +461,16 @@ body{touch-action:pinch-zoom}
   .hud,.cam,[data-head]{display:none !important}
   .scrollcue{bottom:auto;top:72px}
 }
+
+/* skills: label above its chips; chip lists are real lists */
+ul.modal-chips{list-style:none;padding:0;margin:6px 0 0}
+.skills{grid-template-columns:1fr;gap:2px 0}
+.skills dd{margin:0 0 14px}
+.skills dd .modal-chips{margin-top:4px}
+/* respect the reduced-motion setting: no long fades, slides or looping animations */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;transition-delay:0s !important;scroll-behavior:auto !important}
+}
 </style>
 </head>
 <body>
@@ -477,7 +487,7 @@ body{touch-action:pinch-zoom}
       <a class="link" href="#projects" data-go="projects" data-dwell>Projects</a>
       <a class="link" href="#journey" data-go="journey" data-dwell>Education &amp; Experience</a>
       <a class="link" href="#contact" data-go="contact" data-dwell>Contact</a>
-      <a class="btn btn-primary" href="files/AdrianLeon_CV2025.pdf" download data-dwell="long">CV ↓</a>
+      <a class="btn btn-primary" href="files/AdrianLeon_CV2026.pdf" download data-dwell="long">CV ↓</a>
     </div>
   </nav>
 
@@ -486,9 +496,9 @@ body{touch-action:pinch-zoom}
     <div class="kicker">Ph.D. · XR Accessibility · Técnico Lisboa</div>
     <h1 id="h-home" tabindex="-1">Virtual worlds <em>everyone can play.</em></h1>
     <p>I research multimodal and alternative input for VR games: eye tracking, head tracking, voice, facial gestures, body leaning and brain-computer interfaces, to make games more inclusive and accessible, so every player can move, point and select in the way that suits them.</p>
-    <div class="modal-chips">
-      <span class="tag tag-accent">Eye tracking</span><span class="tag tag-accent">Head tracking</span><span class="tag tag-accent">Voice</span><span class="tag tag-accent">Facial gestures</span><span class="tag tag-accent">Body leaning</span><span class="tag tag-accent">BCI · EEG</span>
-    </div>
+    <ul class="modal-chips" role="list" aria-label="Research areas">
+      <li class="tag tag-accent">Eye tracking</li><li class="tag tag-accent">Head tracking</li><li class="tag tag-accent">Voice</li><li class="tag tag-accent">Facial gestures</li><li class="tag tag-accent">Body leaning</li><li class="tag tag-accent">BCI · EEG</li>
+    </ul>
     <div class="row" style="margin-top:6px">
       <button class="btn btn-primary" data-go="projects" data-dwell>Explore the islands →</button>
       <button class="btn btn-secondary" data-head data-dwell aria-pressed="false">Browse hands-free</button>
@@ -499,7 +509,7 @@ body{touch-action:pinch-zoom}
   <section class="page" id="projects-head" data-screen-label="Projects" aria-labelledby="h-projects">
     <div class="kicker">Projects</div>
     <h2 id="h-projects" tabindex="-1">The archipelago</h2>
-    <div class="muted" style="font-size:14px">Five islands, five ways to play. Pick one.</div>
+    <div class="muted" style="font-size:14px">Pick an island and explore.</div>
     <div class="cards" id="p-cards"></div>
   </section>
   <div class="labels" id="labels"></div>
@@ -523,12 +533,12 @@ body{touch-action:pinch-zoom}
     </div>
     <p class="desc" id="p-desc"></p>
     <dl class="meta" id="p-meta"></dl>
-    <div><div class="group-h" style="margin-bottom:10px">Controls</div><div class="modal-chips" id="p-controls"></div></div>
+    <div><div class="group-h" id="h-controls" style="margin-bottom:10px">Controls</div><ul class="modal-chips" id="p-controls" role="list" aria-labelledby="h-controls"></ul></div>
     <div class="row"><a class="btn btn-primary" id="p-link" target="_blank" data-dwell="ext">View project ↗</a></div>
   </section>
   <div class="pager page" id="pager">
     <button class="btn btn-secondary btn-icon" data-prev data-dwell aria-label="Previous project">←</button>
-    <span class="count" id="p-count">1 / 5</span>
+    <span class="count" id="p-count"></span>
     <button class="btn btn-secondary btn-icon" data-next data-dwell aria-label="Next project">→</button>
   </div>
 
@@ -541,9 +551,20 @@ body{touch-action:pinch-zoom}
     <div><div class="group-h">Education</div><div class="tl" id="tl-edu"></div></div>
     <div><div class="group-h">Experience</div><div class="tl" id="tl-exp"></div></div>
     <div><div class="group-h">Papers &amp; conferences</div><div class="tl" id="tl-pub"></div></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px">
-      <div><div class="group-h">Skills</div><div class="modal-chips"><span class="tag tag-neutral">Unity 3D</span><span class="tag tag-neutral">C#</span><span class="tag tag-neutral">Python</span><span class="tag tag-neutral">Matlab</span><span class="tag tag-neutral">Mathematica</span><span class="tag tag-neutral">HTML, CSS &amp; Flutter</span><span class="tag tag-neutral">Git &amp; Supabase</span><span class="tag tag-accent">Eye tracking</span><span class="tag tag-accent">Voice recognition</span><span class="tag tag-accent">Facial gesture recognition</span></div></div>
-      <div><div class="group-h">Languages</div><div class="meta"><dt>Spanish</dt><dd>Native</dd><dt>English</dt><dd>C1</dd><dt>French</dt><dd>B2</dd><dt>German</dt><dd>B1</dd></div></div>
+    <div role="group" aria-labelledby="h-skills">
+      <div class="group-h" id="h-skills">Skills</div>
+      <dl class="meta skills">
+        <dt>XR &amp; interaction</dt><dd><ul class="modal-chips" role="list"><li class="tag tag-neutral">Unity 6 / URP</li><li class="tag tag-neutral">Meta XR &amp; Interaction SDK</li><li class="tag tag-neutral">Quest 3 mixed reality</li><li class="tag tag-accent">Eye, hand &amp; face tracking</li><li class="tag tag-accent">Voice (STT / TTS)</li><li class="tag tag-accent">Locomotion &amp; pointing</li></ul></dd>
+        <dt>Web &amp; app</dt><dd><ul class="modal-chips" role="list"><li class="tag tag-neutral">React</li><li class="tag tag-neutral">Next.js</li><li class="tag tag-neutral">Flutter</li><li class="tag tag-neutral">HTML &amp; CSS</li><li class="tag tag-neutral">Supabase &amp; PostgreSQL</li><li class="tag tag-neutral">Vercel</li></ul></dd>
+        <dt>AI tooling</dt><dd><ul class="modal-chips" role="list"><li class="tag tag-neutral">LLM APIs &amp; prompting</li><li class="tag tag-neutral">RAG &amp; AI agents</li><li class="tag tag-neutral">Claude Code &amp; agentic dev</li><li class="tag tag-neutral">Pose estimation</li></ul></dd>
+        <dt>Workflow</dt><dd><ul class="modal-chips" role="list"><li class="tag tag-neutral">Git &amp; GitHub</li><li class="tag tag-neutral">Shell scripting &amp; CLIs</li><li class="tag tag-neutral">Unity CLI automation</li><li class="tag tag-neutral">Testing &amp; CI</li></ul></dd>
+        <dt>Programming</dt><dd><ul class="modal-chips" role="list"><li class="tag tag-neutral">Python</li><li class="tag tag-neutral">C#</li><li class="tag tag-neutral">C++</li><li class="tag tag-neutral">TypeScript</li><li class="tag tag-neutral">Matlab</li><li class="tag tag-neutral">Mathematica</li></ul></dd>
+        <dt>Engines &amp; platforms</dt><dd><ul class="modal-chips" role="list"><li class="tag tag-neutral">Unreal Engine (basic)</li><li class="tag tag-neutral">Windows</li><li class="tag tag-neutral">Linux</li><li class="tag tag-neutral">macOS</li><li class="tag tag-neutral">Android</li></ul></dd>
+      </dl>
+    </div>
+    <div role="group" aria-labelledby="h-langs">
+      <div class="group-h" id="h-langs">Languages</div>
+      <dl class="meta"><dt>Spanish</dt><dd>Native</dd><dt>English</dt><dd>C1</dd><dt>French</dt><dd>B2</dd><dt>German</dt><dd>B1</dd></dl>
     </div>
   </section>
 
@@ -585,11 +606,40 @@ body{touch-action:pinch-zoom}
 <script type="module">
 
 /* ---------- content ---------- */
+// order = on-screen order of the islands (front row left to right, then back row): chosen so label targets never overlap
 const PROJECTS = [
+  { id:'mudartti', title:'Mudartti', kicker:'Game Jam 4 Health 2026', img:'assets/mudartti.jpg',
+    alt:'Intro art from the game: a boy carries a basket of kittens across a fallen log in a moonlit forest.',
+    desc:'A body-controlled game for healthy posture, built in three days at Unicorn Factory Lisboa. A webcam tracks your pose while your character carries a basket of kittens along a forest path, with a calibration scene, a hand-cursor interface, and crouch and slouch detection for ergonomics.',
+    meta:[['Platform','Desktop · Unity'],['Input','Webcam pose tracking'],['Event','Game Jam 4 Health · Unicorn Factory Lisboa']], controls:['Body posture','Webcam','Hand cursor'],
+    link:'https://github.com/AdrianLeon51/Mudartti_v2', linkLabel:'GitHub repo ↗' },
+  { id:'contextar', title:'ContextAR – Muse', kicker:'XRCC Online Hackathon', img:'assets/contextar.jpg',
+    alt:'Screenshot of the museum guide showing The Card Players by Paul Cézanne with a small information card.',
+    desc:'An AI-powered XR museum companion that adapts to your attention and surroundings. It senses what you look at, how engaged you are and how crowded or noisy the room is, then decides when to stay silent, show a glance card or start a full voice conversation, using GPT-4o with retrieval over exhibit content.',
+    meta:[['Platform','Meta Quest · Unity 6'],['AI','GPT-4o · RAG · FastAPI'],['Event','XRCC Online Hackathon']], controls:['Eye gaze','Voice'],
+    video:'uVUPJRyVCUM', link:'https://github.com/R-Irfan/ContextAR', linkLabel:'GitHub repo ↗' },
   { id:'supra', title:'Supra', kicker:'XRCC hackathon · 2nd place', img:'assets/supra.jpg',
     desc:'An immersive tool for fashion designers to customize garments through hand gestures and voice instructions.',
     meta:[['Platform','Mixed reality'],['Award','XRCC 2nd place']], controls:['Hand gestures','Voice instructions'],
     video:'vIm7_19qajk', link:null },
+  { id:'mirror', title:'Mirror Me', kicker:'EmpowerXR Hackathon', img:'assets/mirror-me.svg',
+    alt:'Concept illustration: a person on the left and their avatar reflected in a large mirror, joined by a dotted gaze line.',
+    desc:'A concept pairing personalized XR controls with representative avatars for more inclusive immersive experiences, prototyped during a three-day accessibility hackathon. Implemented gaze and hand-pointing calibration that adapts input modes to each user.',
+    meta:[['Platform','XR · Unity'],['Event','EmpowerXR Accessibility Hackathon']], controls:['Eye gaze','Hand pointing'],
+    link:'https://www.instagram.com/p/DZnQ2IUiDXU/', linkLabel:'Event post ↗' },
+  { id:'shooter', title:'Hands-Free Shooting XR Game', kicker:'Meta Quest · Research prototype', img:'https://img.youtube.com/vi/GINM54HA5ZE/maxresdefault.jpg',
+    desc:'Shooting game fully hands-free. Eye gaze points at targets and drives the weapons menu; facial gestures and voice commands fire, each matched to a different type of creature.',
+    meta:[['Platform','Meta Quest'],['Space','Room-scale or seated']], controls:['Eye gaze','Head tracking','Facial gestures','Voice'],
+    video:'GINM54HA5ZE', link:'https://github.com/AdrianLeon51/XR_HandsFree', linkLabel:'GitHub repo ↗' },
+  { id:'itiky', title:'I Thought I Knew You', kicker:'UNESCO Youth Hackathon 2026 · Winner', img:'assets/itiky.jpg',
+    alt:'Illustration from the game: a student seen from behind looks at five classmates chatting and smiling in a school corridor.',
+    desc:'A class-chat game about deepfakes, rumours and the friend you’d rather believe. Over four evenings you investigate videos, photos, accounts and voice messages, practising the SIFT habit (Stop, Investigate the source, Find better coverage, Trace the original) before you react. Winner team among 2k participants.',
+    meta:[['Platform','Web (browser)'],['Award','UNESCO Youth Hackathon 2026'],['Topic','Media and information literacy']], controls:['Mouse','Touch'],
+    link:'https://www.itiky.eu', linkLabel:'Play the game ↗' },
+  { id:'webvoid', title:'WebVoid', kicker:'Desktop · Unity', img:'assets/webvoid.jpg',
+    desc:'Play as a spider: crawl along surfaces and shoot webs to swing through a low-poly night cemetery towards a glowing portal.',
+    meta:[['Platform','Windows'],['Engine','Unity']], controls:['Mouse','Keyboard'],
+    link:null },
   { id:'cuffler', title:'The Cuffler', kicker:'Global Game Jam 2026', img:'assets/cuffler.jpg',
     desc:'A fun Shell Game with an abnormal twist. A group effort developed during the 2-day Global Game Jam.',
     meta:[['Theme','Mask'],['Site','Laboratório de Jogos – Técnico'],['Tools','Unity · MS Windows']], controls:['Mouse'],
@@ -597,15 +647,7 @@ const PROJECTS = [
   { id:'glide', title:'Spectral Glide', kicker:'Xmas Game Jam 2025', img:'https://img.itch.zone/aW1nLzI0NTQ5MjYyLmpwZw==/original/A9doF%2B.jpg',
     desc:'Short snowboard immersive hands-free experience developed for a 3-day Game Jam. You steer only by leaning your body right, left, forward or backwards. No controllers needed.',
     meta:[['Platform','Meta Quest · Android'],['Goal','Reach the finish line between the flags']], controls:['Body leaning','No controllers'],
-    link:'https://adrianleon51.itch.io/spectralglide', linkLabel:'Play on itch.io ↗' },
-  { id:'shooter', title:'Hands-Free Shooting XR Game', kicker:'Meta Quest · Research prototype', img:'https://img.youtube.com/vi/GINM54HA5ZE/maxresdefault.jpg',
-    desc:'Shooting game fully hands-free. Eye gaze points at targets and drives the weapons menu; facial gestures and voice commands fire, each matched to a different type of creature.',
-    meta:[['Platform','Meta Quest'],['Space','Room-scale or seated']], controls:['Eye gaze','Head tracking','Facial gestures','Voice'],
-    video:'GINM54HA5ZE', link:'https://github.com/AdrianLeon51/XR_HandsFree', linkLabel:'GitHub repo ↗' },
-  { id:'webvoid', title:'WebVoid', kicker:'Desktop · Unity', img:'assets/webvoid.jpg',
-    desc:'Play as a spider: crawl along surfaces and shoot webs to swing through a low-poly night cemetery towards a glowing portal.',
-    meta:[['Platform','Windows'],['Engine','Unity']], controls:['Mouse','Keyboard'],
-    link:null }
+    link:'https://adrianleon51.itch.io/spectralglide', linkLabel:'Play on itch.io ↗' }
 ];
 const EDU = [
   ['Ongoing','Ph.D. Computer Science – XR Accessibility','Instituto Superior Técnico · Portugal','Research on multi-modal inputs for game control and accessibility using VR, eye tracking, BCI devices, and artificial intelligence (AI) algorithms to make gaming more inclusive and accessible.'],
@@ -613,6 +655,7 @@ const EDU = [
   ['2021','Engineering in Nanotechnology','Yachay Tech University · Ecuador','Bilingual program with research, internship, and lab experience. Focus on computational physics (Python, Mathematica, Matlab) and biosignal processing.']
 ];
 const EXP = [
+  ['2026','Teaching Assistant – User Centered Design','Instituto Superior Técnico','Leading lab sessions on user-centered design. Students identify a real problem from user interviews, ideate, prototype and iterate to come up with a solution that addresses a specific need.'],
   ['2025','CMU Academy – XR Teaching Assistant','CMU Portugal Academy','Designed and guided XR Studio projects introducing participants to XR through hands-on collaboration, design, and prototyping.'],
   ['2024','Cost Action Member – Media Accessibility','LEAD-ME Cost Action','Active member of the LEAD-ME project, working with European stakeholders to meet Media Accessibility milestones. Organize workshops and seminars to develop solutions, best practices, and guidelines for researchers and policy makers.'],
   ['2022','Researcher & Technician – Immersive Tech.','CEPRA XVI · Ecuador','Secured funding for a project on immersive technologies in physics education. Developed XR environments, rendered 3D models in Unity, and published review articles.'],
@@ -620,6 +663,7 @@ const EXP = [
   ['2020','Human Cognition & Brain Sciences – Internship','Max Planck Institute','Conducted Representation Similarity Analysis on fMRI data using Python and Matlab. Modeled BOLD signals for voxel-level lexical representation, laying groundwork for decoding lexical meaning from fMRI.']
 ];
 const PUB = [
+  ['2026','Hands-VRee: Towards Hands-Free Gaming in VR via Concurrent Input for Locomotion, Viewport Control, and Pointing','ICMI’26 · Italy · User study',null],
   ['2025','Multimodal hands-free VR for wheelchair users with upper limb mobility limitations: Leaning, head-gain, and gaze pointing','IEEE VR 2025 Proceedings · Speaker & first author','https://doi.org/10.1109/VRW66409.2025.00032'],
   ['2023','Photochemical Reduction of Silver Nanoparticles on Diatoms','Marine Drugs','https://www.mdpi.com/1660-3397/21/3/185'],
   ['2022','Immersive virtual technologies for learning physics in higher education','EDULEARN22 Proceedings · Speaker & co-author','https://library.iated.org/view/OLMEDO2022IMM']
@@ -628,7 +672,9 @@ const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const tlHTML = (rows, off) => rows.map((r,i)=>`<div class="tl-item" data-stone="${off+i}"><div class="tl-year">${r[0]}</div><div><div class="tl-title">${esc(r[1])}</div><div class="tl-org">${esc(r[2])}</div><div class="tl-desc">${esc(r[3])}</div></div></div>`).join('');
 document.getElementById('tl-edu').innerHTML = tlHTML(EDU,0);
 document.getElementById('tl-exp').innerHTML = tlHTML(EXP,EDU.length);
-document.getElementById('tl-pub').innerHTML = PUB.map(r=>`<a class="tl-item" href="${r[3]}" target="_blank" data-dwell="ext" style="text-decoration:none;color:inherit"><div class="tl-year">${r[0]}</div><div><div class="tl-title">${esc(r[1])} <span style="color:var(--color-accent)">↗</span></div><div class="tl-org">${esc(r[2])}</div></div></a>`).join('');
+document.getElementById('tl-pub').innerHTML = PUB.map(r=> r[3]
+  ? `<a class="tl-item" href="${r[3]}" target="_blank" data-dwell="ext" style="text-decoration:none;color:inherit"><div class="tl-year">${r[0]}</div><div><div class="tl-title">${esc(r[1])} <span style="color:var(--color-accent)">↗</span></div><div class="tl-org">${esc(r[2])}</div></div></a>`
+  : `<div class="tl-item"><div class="tl-year">${r[0]}</div><div><div class="tl-title">${esc(r[1])}</div><div class="tl-org">${esc(r[2])}</div></div></div>`).join('');
 
 // screen readers: say when a link opens a new tab
 function markNewTab() {
@@ -823,13 +869,15 @@ const homeBeacon = beacon(C.accentHi, 3.2); homeBeacon.position.set(-1.9,.25,-1.
 
 /* ---------- project archipelago ---------- */
 const ARCH = new THREE.Vector3(0, 0, -34);
-const islandSpots = [[-13,1.2,2],[-6.5,-1,-2],[0,1.8,-4],[6.5,-.6,-2],[13,1.4,2]];
+// front row + a staggered, raised back row so front labels don't cover it (one entry per project)
+const islandSpots = [[-13,1.2,2],[-6.5,-1,-2],[0,1.8,-4],[6.5,-.6,-2],[13,1.4,2],
+                     [-13.5,8,-9],[-4.5,8.3,-10],[4.5,8,-9],[13.5,8.3,-10]];
 const projIslands = PROJECTS.map((p,i)=>{
   const g = new THREE.Group(); const [x,y,z] = islandSpots[i];
   g.position.set(ARCH.x+x, ARCH.y+y, ARCH.z+z);
   const isl = makeIsland(2.1, 3, i+2); g.add(isl); tufts(g, 2.1, 16, i+9);
   const lm = new THREE.Group(); lm.position.y = .25; g.add(lm);
-  g.userData.hitParts = [isl, lm]; // island + landmark define the label's hit area
+  g.userData.hitParts = [isl.children[0], lm]; // island top + landmark define the label's hit area (the hanging rock is still clickable in 3D)
   if (p.id==='supra') {
     lm.add(mesh(cyl(.4,.45,.08,10), mat(C.stone), [0,.04,0]));
     lm.add(mesh(cyl(.03,.03,.9,5), mat(C.stone), [0,.5,0]));
@@ -891,6 +939,66 @@ const projIslands = PROJECTS.map((p,i)=>{
     // web strands
     const web = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(1.1,1.35,-.6), new THREE.Vector3(.2,.9,-.1), new THREE.Vector3(-.5,.75,-.1)]);
     lm.add(new THREE.Line(web, new THREE.LineBasicMaterial({ color:'#cfd3e5', transparent:true, opacity:.6 })));
+  }
+  if (p.id==='itiky') {
+    // a phone with a "pause" ring (the S of SIFT: Stop) and chat bubbles drifting around it
+    const phone = new THREE.Group(); phone.position.set(0,1.0,0); phone.rotation.y = -.3; lm.add(phone);
+    phone.add(mesh(new THREE.BoxGeometry(.72,1.3,.09), mat('#2a2c3e', { roughness:.4 })));
+    phone.add(mesh(new THREE.BoxGeometry(.6,1.12,.01), glow(C.accentHi,.7), [0,0,.05], null, false));
+    [[-.1,.3,.34],[.08,.05,.26],[-.04,-.25,.38]].forEach(([y,x,w])=>phone.add(mesh(new THREE.BoxGeometry(w,.12,.012), glow(C.warm,1.4), [x,y,.06], null, false)));
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(.95,.02,4,48), glow(C.warm,2)); ring.position.set(0,1.0,0); lm.add(ring);
+    const bubbles = [[-1.0,1.75,.3,'#cfd3e5'],[1.05,1.45,-.1,C.accentHi],[-.75,.7,.65,C.warm],[.8,.55,.6,'#cfd3e5']].map(([x,y,z,c],k)=>{
+      const b = mesh(new THREE.IcosahedronGeometry(.17+.03*(k%2),1), c==='#cfd3e5' ? mat(c) : glow(c,1.2), [x,y,z], null, false); b.userData.y0 = y; lm.add(b); return b; });
+    [[-1.4,.4],[1.35,-.5]].forEach(([a,b])=>{ const r = rock(.2); r.position.set(a,.1,b); lm.add(r); });
+    g.userData.tick = (t)=>{ ring.rotation.y = t*.6; ring.rotation.x = Math.sin(t*.5)*.3; bubbles.forEach((b,k)=>{ b.position.y = b.userData.y0 + Math.sin(t*1.4+k*1.7)*.1; }); };
+  }
+  if (p.id==='mudartti') {
+    // a log across the island with a walker carrying a basket of kittens; a pose skeleton follows them
+    lm.add(mesh(cyl(.24,.28,3,8), mat('#4a3328'), [0,.32,0], [0,0,Math.PI/2]));
+    [[-1.2,.1],[1.1,-.15]].forEach(([x,z])=>lm.add(mesh(new THREE.ConeGeometry(.14,.3,5), mat(C.grassHi), [x,.62,z], [0,0,.3], false)));
+    const fig = new THREE.Group(); fig.position.set(0,.55,0); lm.add(fig);
+    fig.add(mesh(new THREE.CapsuleGeometry(.12,.38,2,6), mat('#e8a93a'), [0,.62,0]));
+    fig.add(mesh(new THREE.IcosahedronGeometry(.11,1), mat(C.skin), [0,1.02,0]));
+    [-.06,.06].forEach(x=>fig.add(mesh(cyl(.045,.04,.4,5), mat('#3d4f8a'), [x,.2,0])));
+    fig.add(mesh(cyl(.21,.15,.17,9), mat('#c79a5a'), [0,1.28,0]));
+    [[-.09,1.4,0],[.08,1.4,.04],[0,1.46,-.06]].forEach(([x,y,z])=>fig.add(mesh(new THREE.IcosahedronGeometry(.075,1), mat('#d98a3a'), [x,y,z], null, false)));
+    const joints = [[0,1.0,.15],[0,.78,.15],[0,.5,.15],[.04,.22,.15],[.04,0,.15]];
+    const bones = new THREE.Line(new THREE.BufferGeometry().setFromPoints(joints.map(j=>new THREE.Vector3(...j))), new THREE.LineBasicMaterial({ color:C.accentHi, transparent:true, opacity:.9 }));
+    fig.add(bones);
+    joints.forEach(j=>fig.add(mesh(new THREE.IcosahedronGeometry(.035,0), glow(C.accentHi,3), j, null, false)));
+    const t1 = tree(1.5,.8); t1.position.set(-1.4,0,-.7); lm.add(t1);
+    const r1 = rock(.22); r1.position.set(1.3,.1,.6); lm.add(r1);
+    g.userData.tick = (t)=>{ fig.position.x = Math.sin(t*.5)*.9; fig.rotation.z = Math.sin(t*1.1)*.1; fig.scale.y = 1 - Math.max(0, Math.sin(t*.8))*.08; };
+  }
+  if (p.id==='mirror') {
+    // a standing mirror: the real avatar in front, its "representative" reflection inside
+    const frame = new THREE.Mesh(new THREE.TorusGeometry(.72,.05,6,36), mat('#cfd3e5')); frame.scale.set(1,1.4,1); frame.position.set(0,1.45,-.35); lm.add(frame);
+    const glass = new THREE.Mesh(new THREE.CircleGeometry(.7,36), new THREE.MeshBasicMaterial({ color:C.accent, transparent:true, opacity:.28, side:THREE.DoubleSide, blending:THREE.AdditiveBlending, depthWrite:false }));
+    glass.scale.set(1,1.4,1); glass.position.set(0,1.45,-.35); lm.add(glass);
+    [-.45,.45].forEach(x=>lm.add(mesh(cyl(.035,.045,1.0,5), mat(C.stone), [x*.9,.5,-.35], [0,0,x*.5])));
+    const avatar = (color, ghost)=>{ const a = new THREE.Group(); const m = ghost ? new THREE.MeshBasicMaterial({ color, transparent:true, opacity:.6, blending:THREE.AdditiveBlending, depthWrite:false }) : mat(color);
+      a.add(new THREE.Mesh(new THREE.CapsuleGeometry(.13,.42,2,6), m)); a.children[0].position.y = .5;
+      a.add(new THREE.Mesh(new THREE.IcosahedronGeometry(.12,1), ghost ? m : mat(C.skin))); a.children[1].position.y = .98; return a; };
+    const real = avatar(C.jacket,false); real.position.set(.15,0,.85); lm.add(real);
+    const refl = avatar(C.green,true); refl.position.set(.15,.9,-.3); refl.scale.setScalar(.9); lm.add(refl);
+    const gaze = new THREE.Line(new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(.15,1.0,.85), new THREE.Vector3(.15,1.55,-.3)]), new THREE.LineDashedMaterial({ color:C.accentHi, dashSize:.08, gapSize:.08, transparent:true, opacity:.6 })); gaze.computeLineDistances(); lm.add(gaze);
+    const r2 = rock(.2); r2.position.set(-1.3,.1,.5); lm.add(r2);
+    g.userData.tick = (t)=>{ refl.position.y = .9 + Math.sin(t*1.2)*.04; glass.material.opacity = .24 + Math.sin(t*1.6)*.06; real.rotation.y = Math.sin(t*.6)*.25; };
+  }
+  if (p.id==='contextar') {
+    // a framed painting on a pedestal, an eye that follows it, and a glance card that appears when you linger
+    lm.add(mesh(cyl(.5,.62,.5,8), mat(C.stone), [0,.25,0]));
+    lm.add(mesh(new THREE.BoxGeometry(1.5,1.1,.08), mat('#6b4a2a'), [0,1.3,0]));
+    lm.add(mesh(new THREE.BoxGeometry(1.34,.5,.02), mat('#6e8fb0'), [0,1.52,.05], null, false));
+    lm.add(mesh(new THREE.BoxGeometry(1.34,.44,.02), mat('#c9a24a'), [0,1.03,.05], null, false));
+    lm.add(mesh(new THREE.ConeGeometry(.16,.5,6), mat(C.leaf), [.35,1.3,.07], null, false));
+    const card = new THREE.Mesh(new THREE.BoxGeometry(.56,.34,.02), new THREE.MeshBasicMaterial({ color:C.accentHi, transparent:true, opacity:.4, blending:THREE.AdditiveBlending, depthWrite:false }));
+    card.position.set(1.15,1.2,.35); card.rotation.y = -.5; lm.add(card);
+    const eye = new THREE.Group(); eye.position.set(0,2.35,.5);
+    eye.add(new THREE.Mesh(new THREE.TorusGeometry(.3,.025,6,40), glow(C.accentHi,2.5)));
+    eye.add(mesh(new THREE.IcosahedronGeometry(.1,1), glow(C.accentHi,3), null, null, false)); lm.add(eye);
+    [[-1.0,.8],[.95,.9]].forEach(([x,z])=>{ const v = new THREE.Group(); v.position.set(x,0,z); v.add(mesh(new THREE.CapsuleGeometry(.1,.35,2,6), mat(C.jacket), [0,.4,0])); v.add(mesh(new THREE.IcosahedronGeometry(.1,1), mat(C.skin), [0,.8,0])); lm.add(v); });
+    g.userData.tick = (t)=>{ eye.rotation.y = Math.sin(t*.8)*.5; card.position.y = 1.2 + Math.sin(t*1.3)*.06; card.material.opacity = .3 + Math.max(0,Math.sin(t*.9))*.25; };
   }
   const b = beacon(i===1||i===2 ? C.warm : C.accentHi, 3.4); b.position.set(1.4,.25,1.1); g.add(b);
   g.userData.beacon = b; g.userData.base = g.position.clone(); g.userData.i = i; g.userData.lift = 0;
@@ -967,7 +1075,7 @@ const station = {
   home:     () => ({ pos:V(-3.6, 2.6, 8.8), tgt:V(-2.2, 1.2, 0) }),
   // phones: the overview is a carousel framing one island at a time
   projects: () => { if (isNarrow) { const p = projIslands[state.car].userData.base; return { pos:p.clone().add(V(0, 3.2, 12)), tgt:p.clone().add(V(0, 1.4, 0)) }; }
-    return { pos:V(ARCH.x, ARCH.y+6.5, ARCH.z+24), tgt:V(ARCH.x, ARCH.y+1.2, ARCH.z-1) }; },
+    return { pos:V(ARCH.x, ARCH.y+18, ARCH.z+26), tgt:V(ARCH.x, ARCH.y+6, ARCH.z-4) }; },
   // desktop aims beside the subject to leave room for side panels; phones aim at it (panels are bottom sheets)
   project:  (i) => { const p = projIslands[i].userData.base;
     return isNarrow ? { pos:p.clone().add(V(0, 3, 9.5)), tgt:p.clone().add(V(0, 1, 0)) } : { pos:p.clone().add(V(3.4, 2.8, 7.2)), tgt:p.clone().add(V(2.6, .9, 0)) }; },
@@ -980,8 +1088,12 @@ const ORDER = ['home','projects','journey','contact'];
 const state = { page:'home', proj:-1, car:0 };
 const camPos = station.home().pos.clone(), camTgt = station.home().tgt.clone();
 let fly = null;
+// reduced motion: camera moves are near-instant and the ambient animation is frozen (live-updates if the OS setting changes)
+const mqMotion = matchMedia('(prefers-reduced-motion: reduce)');
+let calm = mqMotion.matches;
+mqMotion.addEventListener('change', ()=>{ calm = mqMotion.matches; });
 function flyTo(s) {
-  fly = { fromP:camPos.clone(), fromT:camTgt.clone(), toP:s.pos, toT:s.tgt, t:0, dur: 2.1 + Math.min(1.4, camPos.distanceTo(s.pos)/40) };
+  fly = { fromP:camPos.clone(), fromT:camTgt.clone(), toP:s.pos, toT:s.tgt, t:0, dur: calm ? .01 : 2.1 + Math.min(1.4, camPos.distanceTo(s.pos)/40) };
 }
 // focus moves to the new section's heading on page change, except for head-cursor selections
 let viaHead = false, booted = false;
@@ -1024,11 +1136,11 @@ function fillProject(i) {
   const p = PROJECTS[i];
   document.getElementById('p-kicker').textContent = p.kicker;
   document.getElementById('p-title').textContent = p.title;
-  const img = document.getElementById('p-img'); img.src = p.img; img.alt = 'Screenshot of ' + p.title;
+  const img = document.getElementById('p-img'); img.src = p.img; img.alt = p.alt || 'Screenshot of ' + p.title;
   stopVideo(); document.getElementById('p-play').hidden = !p.video;
   document.getElementById('p-desc').textContent = p.desc;
   document.getElementById('p-meta').innerHTML = p.meta.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join('');
-  document.getElementById('p-controls').innerHTML = p.controls.map(c=>`<span class="tag tag-accent">${c}</span>`).join('');
+  document.getElementById('p-controls').innerHTML = p.controls.map(c=>`<li class="tag tag-accent">${c}</li>`).join('');
   const l = document.getElementById('p-link'); l.style.display = p.link ? '' : 'none'; if (p.link){ l.href = p.link; l.textContent = p.linkLabel; markNewTab(); }
   document.getElementById('p-count').textContent = `${i+1} / ${PROJECTS.length}`;
 }
@@ -1084,7 +1196,7 @@ addEventListener('wheel', e=>{
 addEventListener('keydown', e=>{
   if ((e.key==='c' || e.key==='C') && headOn) startCalib();
   if (e.key==='Escape' && state.proj>=0) setPage('projects');
-  if (state.page==='projects' && state.proj>=0 && (e.key==='ArrowRight'||e.key==='ArrowLeft')) setPage('projects', (state.proj + (e.key==='ArrowRight'?1:-1) + 5) % 5);
+  if (state.page==='projects' && state.proj>=0 && (e.key==='ArrowRight'||e.key==='ArrowLeft')) setPage('projects', (state.proj + (e.key==='ArrowRight'?1:-1) + PROJECTS.length) % PROJECTS.length);
   else if (isNarrow && state.page==='projects' && (e.key==='ArrowRight'||e.key==='ArrowLeft')) setCar(state.car + (e.key==='ArrowRight'?1:-1));
   // inside a scrollable panel, up/down keys scroll it instead of changing page
   else if (e.target.closest && e.target.closest('[data-scroll], #project, #contact')) return;
@@ -1095,8 +1207,8 @@ document.addEventListener('click', e=>{
   if (e.target.closest('[data-skip]')) { e.preventDefault(); return focusSection(0); }
   const go = e.target.closest('[data-go]'); if (go){ e.preventDefault(); setPage(go.dataset.go); return; }
   if (e.target.closest('[data-close]')) return setPage('projects');
-  if (e.target.closest('[data-next]')) return setPage('projects', (state.proj+1)%5);
-  if (e.target.closest('[data-prev]')) return setPage('projects', (state.proj+4)%5);
+  if (e.target.closest('[data-next]')) return setPage('projects', (state.proj+1)%PROJECTS.length);
+  if (e.target.closest('[data-prev]')) return setPage('projects', (state.proj+PROJECTS.length-1)%PROJECTS.length);
   if (e.target.closest('[data-carprev]')) return setCar(state.car - 1);
   if (e.target.closest('[data-carnext]')) return setCar(state.car + 1);
   if (e.target.closest('[data-caropen]')) return setPage('projects', state.car);
@@ -1131,7 +1243,7 @@ addEventListener('pointerup', e=>{
   if (Math.abs(dx) > Math.abs(dy)*1.3) {
     const step = dx < 0 ? 1 : -1;
     if (state.page==='projects' && state.proj<0 && isNarrow) setCar(state.car + step);
-    else if (state.page==='projects' && state.proj>=0) setPage('projects', (state.proj + step + 5) % 5);
+    else if (state.page==='projects' && state.proj>=0) setPage('projects', (state.proj + step + PROJECTS.length) % PROJECTS.length);
   } else if (Math.abs(dy) > Math.abs(dx)*1.3) {
     const now = performance.now(); if (now < wheelLock) return; wheelLock = now + 900;
     const i = ORDER.indexOf(state.page), n = Math.max(0, Math.min(ORDER.length-1, i + (dy < 0 ? 1 : -1)));
@@ -1355,7 +1467,7 @@ function tick(once) {
     skipFrame = !skipFrame;
     if (skipFrame) { requestAnimationFrame(tick); return; }
   }
-  const dt = Math.min(clock.getDelta(), .05), t = clock.elapsedTime;
+  const dt = Math.min(clock.getDelta(), .05), t = calm ? 0 : clock.elapsedTime;
   if (fly || ++shadowFrame % 6 === 0) renderer.shadowMap.needsUpdate = true;
   trackHead(); updateCalib();
   if (headReady()) {
@@ -1421,6 +1533,7 @@ function tick(once) {
     if (u.spin) { u.spin.rotation.y = t*.6; u.spin2.rotation.z = t*.9; }
     if (u.cups) u.cups.forEach((c,k)=>{ const ph = t*1.6 + k*2.094; c.position.x = Math.cos(ph)*.6*(k===1?1:-1)*.0 + [-.6,0,.6][k] + Math.sin(t*2.4+k)*.12; c.position.y = .67 + Math.max(0, Math.sin(t*1.2 + k*2))*.25; });
     if (u.eye) { u.eye.rotation.y = Math.sin(t*.8)*.6; const tg = u.targets[Math.floor(t/1.6)%3]; u.eye.position.lerp(tmpV.set(tg.position.x*.6, 2.1, .6), .03); }
+    if (u.tick) u.tick(t);
     if (u.portal) { u.portal.rotation.z = t*.4; u.portal.children[1].material.opacity = .2 + Math.sin(t*2)*.1; }
   });
   labels.forEach((l,i)=>{
@@ -1458,7 +1571,7 @@ function tick(once) {
   contactG.position.y = CONTACT.y + Math.sin(t*.5)*.2;
   waves.forEach((w,k)=>{ const p = ((t*.45 + k/3) % 1); w.scale.setScalar(.3 + p*3.2); w.material.opacity = (1-p)*.7; });
   // sky
-  clouds.forEach(c=>{ c.position.x += c.userData.v*dt; if (c.position.x > 75) c.position.x = -75; });
+  clouds.forEach(c=>{ c.position.x += calm ? 0 : c.userData.v*dt; if (c.position.x > 75) c.position.x = -75; });
   const fp = flies.geometry.attributes.position, fb = flies.userData.base, fs = flies.userData.seed;
   for (let i=0;i<fs.length;i++){ fp.array[i*3] = fb[i*3] + Math.sin(t*.5+fs[i])*.6; fp.array[i*3+1] = fb[i*3+1] + Math.sin(t*.8+fs[i]*2)*.4; fp.array[i*3+2] = fb[i*3+2] + Math.cos(t*.4+fs[i])*.6; }
   fp.needsUpdate = true; flies.material.opacity = .45 + Math.sin(t*3)*.15;
